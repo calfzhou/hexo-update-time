@@ -18,5 +18,5 @@ export const parseMeta = (data) => {
  * @param {Array<string>} lines
  */
 export const replaceMeta = (data, lines) => {
-  return data.replace(META_REGEX, `---\r\n${lines.join("\r\n")}\r\n---\r\n`);
+  return data.replace(META_REGEX, `---\n${lines.join("\n")}\n---`);
 };
