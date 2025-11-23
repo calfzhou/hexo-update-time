@@ -2,7 +2,7 @@
 
 import { program } from "commander";
 import dayjs from "dayjs";
-import { readFile, writeFile } from "../src/file.js";
+import { getFileModifiedTime, readFile, writeFile } from "../src/file.js";
 import { isFirstAdd, isUnTracked } from "../src/git.js";
 import { parseMeta, replaceMeta } from "../src/parser.js";
 
@@ -33,13 +33,17 @@ const updateMetaLines = (lines, property, value) => {
 
 program.args.forEach(async (filepath) => {
   try {
+    const mtime = await getFileModifiedTime(filepath);
     const data = await readFile(filepath);
     const metaLines = parseMeta(data);
     const currentDate = dayjs().format("YYYY-MM-DD HH:mm:ss");
     if ((await isUnTracked(filepath)) || (await isFirstAdd(filepath))) {
       updateMetaLines(metaLines, "date", currentDate);
+      updateMetaLines(metaLines, "updated", currentDate);
+    } else {
+      const mtimeDate = dayjs(mtime).format("YYYY-MM-DD HH:mm:ss");
+      updateMetaLines(metaLines, "updated", mtimeDate);
     }
-    updateMetaLines(metaLines, "updated", currentDate);
     await writeFile(filepath, replaceMeta(data, metaLines));
     console.log(`file: ${filepath} update success.`);
   } catch (e) {

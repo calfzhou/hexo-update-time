@@ -41,4 +41,4 @@ npx husky add .husky/pre-commit "npm run lint-staged"
 
 如果为第一次提交，那么 `date` 和 `updated` 会统一更新到当前时间
 
-否则只有 `updated` 会更新到当前时间
+否则只有 `updated` 会更新到 ~~当前时间~~ 文件的最后修改时间
