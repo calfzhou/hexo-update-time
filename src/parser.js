@@ -21,5 +21,5 @@ export const parseMeta = (data) => {
  */
 export const replaceMeta = (data, lines) => {
   const eol = os.EOL;
-  return data.replace(META_REGEX, `---${eol}${lines.join(eol)}${eol}---${eol}`);
+  return data.replace(META_REGEX, `---${eol}${lines.join(eol)}${eol}---`);
 };
