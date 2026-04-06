@@ -5,7 +5,7 @@
 安装依赖
 
 ```text
-npm install hexo-update-time lint-staged husky
+npm install @calfzhou/hexo-update-time lint-staged husky
 ```
 
 执行
